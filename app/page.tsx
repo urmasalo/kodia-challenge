@@ -1,14 +1,33 @@
-import { Heading, Flex } from "@radix-ui/themes"
-import { JSX } from "react"
+import { JSX } from "react";
+import Header from "./components/Header";
+import { Flex, Tabs, Box, } from "@radix-ui/themes";
 
-export default function CallToAction(): JSX.Element {
+import { homeTabs } from "./data/home-tabs";
+
+
+export default function Home(): JSX.Element {
   return (
+    <>
+      <Header />
+      <Flex justify="between" align="center" direction={{ initial: "column", sm: "row" }}>
+        <Tabs.Root defaultValue="home" style={{ width: "100%" }}>
+          <Tabs.List size="2" mx="9">
+            {homeTabs.map((tab) => (
+              <Tabs.Trigger key={tab.value} value={tab.value}>
+                {tab.label}
+              </Tabs.Trigger>
+            ))}
+          </Tabs.List>
 
-    <Flex direction="column" align="center" gap="4" >
-      <Heading size="8" >
-        News
-      </Heading>
-    </Flex>
-
-  )
+          <Box>
+            {homeTabs.map((tab) => (
+              <Tabs.Content key={tab.value} value={tab.value} style={{ background: "var(--gray-2)" }}>
+                {tab.content}
+              </Tabs.Content>
+            ))}
+          </Box>
+        </Tabs.Root>
+      </Flex>
+    </>
+  );
 }
