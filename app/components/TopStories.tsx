@@ -26,7 +26,7 @@ interface NewsResponse {
 
 export default function TopStories(): JSX.Element {
 
-    const { searchCriteria, performSearch, setPerformSearch } = useDataContext();
+    const { searchCriteria, performSearch, setPerformSearch, language } = useDataContext();
     const [news, setNews] = useState<Article[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -44,7 +44,7 @@ export default function TopStories(): JSX.Element {
                     throw new Error("API key is not configured. Please add NEXT_PUBLIC_NEWS_API_KEY to your environment variables.");
                 }
 
-                const url = `https://newsapi.org/v2/everything?q=${searchCriteria}&apiKey=${apiKey}`;
+                const url = `https://newsapi.org/v2/everything?q=${searchCriteria}&language=${language}&apiKey=${apiKey}`;
 
                 const response = await axios.get<NewsResponse>(url);
 
